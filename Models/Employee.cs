@@ -33,5 +33,6 @@ namespace E_zavetisce.Models
         }
 
         public ICollection<Notification>? Notifications { get; set; }
+        public ICollection<Adoption>? Adoptions { get; set; }
     }
 }

@@ -9,10 +9,8 @@ namespace E_zavetisce.Models
     {
         public int NotificationID { get; set; }
 
-        [Required]
         public string? Title { get; set; }
 
-        [Required]
         public string? Body { get; set; }
 
         [DataType(DataType.Date)]
@@ -22,6 +20,7 @@ namespace E_zavetisce.Models
 
         [Required]
         public Employee? Employee { get; set; }
+        public int EmployeeID { get; set; }
 
         // Mogoce dodaja se kaksne slike
 

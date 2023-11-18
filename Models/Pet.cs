@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using NuGet.Protocol.Plugins;
 
 namespace E_zavetisce.Models
 {
@@ -24,7 +25,6 @@ namespace E_zavetisce.Models
         [Column("Type")]
         [StringLength(50)]
         public string? Type { get; set; }
-        // Za dodat slike, more se se pogledat kako
     }
 }
 

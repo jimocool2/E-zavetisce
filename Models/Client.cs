@@ -33,5 +33,6 @@ namespace E_zavetisce.Models
         }
 
         public ICollection<Adoption>? Adoptions { get; set; }
+        public ICollection<HandOver>? HandOvers { get; set; }
     }
 }
