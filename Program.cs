@@ -1,9 +1,25 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using E_zavetisce.Models;
+using E_zavetisce.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("ZavetisceContext");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ZavetisceContext>(options =>
+            options.UseSqlServer(connectionString));
 
 var app = builder.Build();
+
+// Seed database using DbInitializer 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ZavetisceContext>();
+    DbInitializer.Initialize(context);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
