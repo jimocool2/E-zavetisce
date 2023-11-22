@@ -13,13 +13,13 @@ namespace E_zavetisce.Models
         [Column("FirstName")]
         [Display(Name = "First Name")]
         [StringLength(50)]
-        public string? FirstMidName { get; set; }
+        public string FirstMidName { get; set; }
 
         [Required]
         [Column("LastName")]
         [Display(Name = "Last Name")]
         [StringLength(50)]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]

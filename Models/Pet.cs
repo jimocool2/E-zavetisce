@@ -14,7 +14,7 @@ namespace E_zavetisce.Models
         [Required]
         [Column("Name")]
         [StringLength(50)]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
 
         [DataType(DataType.Date)]
@@ -24,7 +24,7 @@ namespace E_zavetisce.Models
 
         [Column("Type")]
         [StringLength(50)]
-        public string? Type { get; set; }
+        public string Type { get; set; }
     }
 }
 
