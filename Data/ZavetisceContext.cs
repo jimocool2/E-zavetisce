@@ -1,9 +1,10 @@
 using E_zavetisce.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace E_zavetisce.Data
 {
-    public class ZavetisceContext : DbContext
+    public class ZavetisceContext : IdentityDbContext<ApplicationUser>
     {
         public ZavetisceContext(DbContextOptions<ZavetisceContext> options) : base(options)
         {
