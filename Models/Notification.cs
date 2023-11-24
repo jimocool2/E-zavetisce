@@ -9,20 +9,17 @@ namespace E_zavetisce.Models
     {
         public int NotificationID { get; set; }
 
-        public string? Title { get; set; }
+        public string Title { get; set; }
 
-        public string? Body { get; set; }
+        public string Body { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; }
 
         [Required]
-        public Employee? Employee { get; set; }
-        public int EmployeeID { get; set; }
-
-        // Mogoce dodaja se kaksne slike
-
+        public Employee Employee { get; set; }
+        public string EmployeeID { get; set; }
     }
 }

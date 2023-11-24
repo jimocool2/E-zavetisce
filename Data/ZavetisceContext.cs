@@ -1,14 +1,16 @@
 using E_zavetisce.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace E_zavetisce.Data
 {
-    public class ZavetisceContext : DbContext
+    public class ZavetisceContext : IdentityDbContext<ApplicationUser>
     {
         public ZavetisceContext(DbContextOptions<ZavetisceContext> options) : base(options)
         {
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Pet> Pets { get; set; }
@@ -26,7 +28,13 @@ namespace E_zavetisce.Data
             modelBuilder.Entity<Notification>().ToTable("Notification");
             modelBuilder.Entity<Adoption>().ToTable("Adoption");
 
-            modelBuilder.Entity<Adoption>().HasKey(a => new { a.PetID, a.EmployeeID, a.ClientID });
+            modelBuilder.Entity<Adoption>().HasKey(a => new { a.PetID, a.ClientID });
+
+            modelBuilder.Entity<Adoption>()
+            .HasOne(a => a.Client)
+            .WithMany(c => c.Adoptions)
+            .HasForeignKey(a => a.ClientID)
+            .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

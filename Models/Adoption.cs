@@ -8,11 +8,10 @@ namespace E_zavetisce.Models
     public class Adoption
     {
         public int PetID { get; set; }
-        public int EmployeeID { get; set; }
-        public int ClientID { get; set; }
+        public string ClientID { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Adopted")]
         public DateTime DateAdopted { get; set; }
 
@@ -21,8 +20,5 @@ namespace E_zavetisce.Models
         public Pet? Pet { get; set; }
         [Required]
         public Client? Client { get; set; }
-        // Kdo je odobirl adoption
-        [Required]
-        public Employee? Employee { get; set; }
     }
 }

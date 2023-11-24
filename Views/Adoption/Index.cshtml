@@ -21,9 +21,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Client)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -38,9 +35,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Client.FirstMidName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.FirstMidName)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

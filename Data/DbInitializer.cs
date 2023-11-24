@@ -1,5 +1,6 @@
 using E_zavetisce.Data;
 using E_zavetisce.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 
@@ -10,15 +11,6 @@ namespace E_zavetisce.Data
         private static Pet MakePet(string name, string type)
         {
             return new Pet { Name = name, Type = type, DateAdded = DateTime.Parse("2023-10-01") };
-        }
-
-        private static Client MakeClient(string fmname, string lname)
-        {
-            return new Client { FirstMidName = fmname, LastName = lname, DateJoined = DateTime.Parse("2023-09-01") };
-        }
-        private static Employee MakeEmployee(string fmname, string lname)
-        {
-            return new Employee { FirstMidName = fmname, LastName = lname, HireDate = DateTime.Parse("2021-09-01") };
         }
         public static void Initialize(ZavetisceContext context)
         {
@@ -39,20 +31,65 @@ namespace E_zavetisce.Data
             context.Pets.AddRange(pets);
             context.SaveChanges();
 
-            var clients = new Client[]
-            {
-                MakeClient("Karen", "Smith"),
-                MakeClient("Li", "Wohn")
+            var roles = new IdentityRole[]{
+                new IdentityRole{Id="1", Name="Employee"},
+                new IdentityRole{Id="2", Name="Client"}
             };
-            context.Clients.AddRange(clients);
+            context.Roles.AddRange(roles);
             context.SaveChanges();
 
-            var employees = new Employee[]
+            var user = new ApplicationUser
             {
-                MakeEmployee("Sam", "Jonson"),
-                MakeEmployee("Anna", "Bell")
+                FirstName = "Bob",
+                LastName = "Dilon",
+                Email = "bob@example.com",
+                NormalizedEmail = "XXXX@EXAMPLE:COM",
+                UserName = "bob@example.com",
+                NormalizedUserName = "bob@example.com",
+                PhoneNumber = "+111111111111",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
             };
-            context.Employees.AddRange(employees);
+
+            if (!context.Users.Any(u => u.UserName == user.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>();
+                var hashed = password.HashPassword(user, "Testni123!");
+                user.PasswordHash = hashed;
+                context.Users.Add(user);
+                context.Clients.Add(new Client { ClientID = user.Id, FirstMidName = user.FirstName, LastName = user.LastName, DateJoined = DateTime.Now });
+            };
+
+            var emp = new ApplicationUser
+            {
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "jhon@example.com",
+                NormalizedEmail = "XXXX@EXAMPLE:COM",
+                UserName = "jhon@example.com",
+                NormalizedUserName = "jhon@example.com",
+                PhoneNumber = "+111111111111",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+
+            if (!context.Users.Any(u => u.UserName == emp.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>();
+                var hashed = password.HashPassword(emp, "Example123!");
+                emp.PasswordHash = hashed;
+                context.Users.Add(emp);
+                context.Employees.Add(new Employee { EmployeeID = emp.Id, FirstMidName = emp.FirstName, LastName = emp.LastName, HireDate = DateTime.Now });
+            };
+
+            context.SaveChanges();
+
+            var UserRoles = new IdentityUserRole<string>[] {
+                new IdentityUserRole<string>{RoleId = roles[0].Id, UserId=emp.Id},
+                new IdentityUserRole<string>{RoleId = roles[1].Id, UserId=user.Id}
+            };
+
+            context.UserRoles.AddRange(UserRoles);
             context.SaveChanges();
         }
     }

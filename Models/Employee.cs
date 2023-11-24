@@ -7,22 +7,24 @@ namespace E_zavetisce.Models
 {
     public class Employee
     {
-        public int EmployeeID { get; set; }
+        [Key]
+        [ForeignKey("ApplicationUser")]
+        public string EmployeeID { get; set; }
 
         [Required]
         [Column("FirstName")]
         [Display(Name = "First Name")]
         [StringLength(50)]
-        public string? FirstMidName { get; set; }
+        public string FirstMidName { get; set; }
 
         [Required]
         [Column("LastName")]
         [Display(Name = "Last Name")]
         [StringLength(50)]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Hire Date")]
         public DateTime HireDate { get; set; }
 
@@ -34,5 +36,8 @@ namespace E_zavetisce.Models
 
         public ICollection<Notification>? Notifications { get; set; }
         public ICollection<Adoption>? Adoptions { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
     }
 }

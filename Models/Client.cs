@@ -7,22 +7,24 @@ namespace E_zavetisce.Models
 {
     public class Client
     {
-        public int ClientID { get; set; }
+        [Key]
+        [ForeignKey("ApplicationUser")]
+        public string ClientID { get; set; }
 
         [Required]
         [Column("FirstName")]
         [Display(Name = "First Name")]
         [StringLength(50)]
-        public string? FirstMidName { get; set; }
+        public string FirstMidName { get; set; }
 
         [Required]
         [Column("LastName")]
         [Display(Name = "Last Name")]
         [StringLength(50)]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Joined")]
         public DateTime DateJoined { get; set; }
 
@@ -34,5 +36,6 @@ namespace E_zavetisce.Models
 
         public ICollection<Adoption>? Adoptions { get; set; }
         public ICollection<HandOver>? HandOvers { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

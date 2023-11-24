@@ -29,17 +29,10 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Client.FirstMidName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Employee.FirstMidName)
-        </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="PetID" />
-        <input type="hidden" asp-for="EmployeeID" />
         <input type="hidden" asp-for="ClientID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using E_zavetisce.Data;
 using E_zavetisce.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace E_zavetisce.Controllers
 {
@@ -44,6 +45,7 @@ namespace E_zavetisce.Controllers
         }
 
         // GET: Pets/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -54,10 +56,11 @@ namespace E_zavetisce.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PetID,Name,DateAdded,Type")] Pet pet)
+        public async Task<IActionResult> Create([Bind("PetID,Name,Type")] Pet pet)
         {
             if (ModelState.IsValid)
             {
+                pet.DateAdded = DateTime.Now;
                 _context.Add(pet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

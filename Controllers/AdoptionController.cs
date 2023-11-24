@@ -22,7 +22,7 @@ namespace E_zavetisce.Controllers
         // GET: Adoption
         public async Task<IActionResult> Index()
         {
-            var zavetisceContext = _context.Adoptions.Include(a => a.Client).Include(a => a.Employee).Include(a => a.Pet);
+            var zavetisceContext = _context.Adoptions.Include(a => a.Client).Include(a => a.Pet);
             return View(await zavetisceContext.ToListAsync());
         }
 
@@ -36,7 +36,6 @@ namespace E_zavetisce.Controllers
 
             var adoption = await _context.Adoptions
                 .Include(a => a.Client)
-                .Include(a => a.Employee)
                 .Include(a => a.Pet)
                 .FirstOrDefaultAsync(m => m.PetID == id);
             if (adoption == null)
@@ -51,7 +50,6 @@ namespace E_zavetisce.Controllers
         public IActionResult Create()
         {
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "FirstMidName");
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "FirstMidName");
             ViewData["PetID"] = new SelectList(_context.Pets, "PetID", "Name");
             return View();
         }
@@ -61,7 +59,7 @@ namespace E_zavetisce.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PetID,EmployeeID,ClientID,DateAdopted")] Adoption adoption)
+        public async Task<IActionResult> Create([Bind("PetID,ClientID,DateAdopted")] Adoption adoption)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +68,6 @@ namespace E_zavetisce.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "FirstMidName", adoption.ClientID);
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "FirstMidName", adoption.EmployeeID);
             ViewData["PetID"] = new SelectList(_context.Pets, "PetID", "Name", adoption.PetID);
             return View(adoption);
         }
@@ -89,7 +86,6 @@ namespace E_zavetisce.Controllers
                 return NotFound();
             }
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "FirstMidName", adoption.ClientID);
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "FirstMidName", adoption.EmployeeID);
             ViewData["PetID"] = new SelectList(_context.Pets, "PetID", "Name", adoption.PetID);
             return View(adoption);
         }
@@ -99,7 +95,7 @@ namespace E_zavetisce.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PetID,EmployeeID,ClientID,DateAdopted")] Adoption adoption)
+        public async Task<IActionResult> Edit(int id, [Bind("PetID,ClientID,DateAdopted")] Adoption adoption)
         {
             if (id != adoption.PetID)
             {
@@ -127,7 +123,6 @@ namespace E_zavetisce.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "FirstMidName", adoption.ClientID);
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "FirstMidName", adoption.EmployeeID);
             ViewData["PetID"] = new SelectList(_context.Pets, "PetID", "Name", adoption.PetID);
             return View(adoption);
         }
@@ -142,7 +137,6 @@ namespace E_zavetisce.Controllers
 
             var adoption = await _context.Adoptions
                 .Include(a => a.Client)
-                .Include(a => a.Employee)
                 .Include(a => a.Pet)
                 .FirstOrDefaultAsync(m => m.PetID == id);
             if (adoption == null)
