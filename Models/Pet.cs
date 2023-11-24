@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using NuGet.Protocol.Plugins;
@@ -23,7 +24,7 @@ namespace E_zavetisce.Models
         public DateTime DateAdded { get; set; }
 
         [Column("Type")]
-        [StringLength(50)]
+        [StringLength(500)]
         public string Type { get; set; }
     }
 }
