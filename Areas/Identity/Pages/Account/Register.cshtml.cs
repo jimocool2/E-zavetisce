@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using E_zavetisce.Models;
+using E_zavetisce.Data;
 
 namespace E_zavetisce.Areas.Identity.Pages.Account
 {
@@ -30,13 +31,15 @@ namespace E_zavetisce.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ZavetisceContext _context;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ZavetisceContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +47,7 @@ namespace E_zavetisce.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
@@ -147,6 +151,12 @@ namespace E_zavetisce.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    var client = new Client { ClientID = user.Id, FirstMidName = user.FirstName, LastName = user.LastName, DateJoined = DateTime.Now };
+                    _context.Clients.Add(client);
+                    var role = new IdentityUserRole<string> { RoleId = "2", UserId = user.Id };
+                    _context.UserRoles.Add(role);
+                    await _context.SaveChangesAsync();
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

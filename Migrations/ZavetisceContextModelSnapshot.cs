@@ -27,16 +27,16 @@ namespace E_zavetisce.Migrations
                     b.Property<int>("PetID")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClientID")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateAdopted")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("PetID", "EmployeeID", "ClientID");
+                    b.Property<string>("EmployeeID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("PetID", "ClientID");
 
                     b.HasIndex("ClientID");
 
@@ -118,11 +118,8 @@ namespace E_zavetisce.Migrations
 
             modelBuilder.Entity("E_zavetisce.Models.Client", b =>
                 {
-                    b.Property<int>("ClientID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientID"));
+                    b.Property<string>("ClientID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateJoined")
                         .HasColumnType("datetime2");
@@ -146,11 +143,8 @@ namespace E_zavetisce.Migrations
 
             modelBuilder.Entity("E_zavetisce.Models.Employee", b =>
                 {
-                    b.Property<int>("EmployeeID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeID"));
+                    b.Property<string>("EmployeeID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstMidName")
                         .IsRequired()
@@ -180,8 +174,9 @@ namespace E_zavetisce.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HandOverID"));
 
-                    b.Property<int>("ClientID")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -213,8 +208,9 @@ namespace E_zavetisce.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeID")
-                        .HasColumnType("int");
+                    b.Property<string>("EmployeeID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -397,14 +393,12 @@ namespace E_zavetisce.Migrations
                     b.HasOne("E_zavetisce.Models.Client", "Client")
                         .WithMany("Adoptions")
                         .HasForeignKey("ClientID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("E_zavetisce.Models.Employee", "Employee")
+                    b.HasOne("E_zavetisce.Models.Employee", null)
                         .WithMany("Adoptions")
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeID");
 
                     b.HasOne("E_zavetisce.Models.Pet", "Pet")
                         .WithMany()
@@ -414,9 +408,29 @@ namespace E_zavetisce.Migrations
 
                     b.Navigation("Client");
 
-                    b.Navigation("Employee");
-
                     b.Navigation("Pet");
+                });
+
+            modelBuilder.Entity("E_zavetisce.Models.Client", b =>
+                {
+                    b.HasOne("E_zavetisce.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Client")
+                        .HasForeignKey("E_zavetisce.Models.Client", "ClientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("E_zavetisce.Models.Employee", b =>
+                {
+                    b.HasOne("E_zavetisce.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Employee")
+                        .HasForeignKey("E_zavetisce.Models.Employee", "EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("E_zavetisce.Models.HandOver", b =>
@@ -497,6 +511,15 @@ namespace E_zavetisce.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("E_zavetisce.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Client")
+                        .IsRequired();
+
+                    b.Navigation("Employee")
                         .IsRequired();
                 });
 

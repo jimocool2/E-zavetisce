@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace E_zavetisce.Migrations
 {
     /// <inheritdoc />
-    public partial class AuthPlus : Migration
+    public partial class newDefinitions : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,36 +50,6 @@ namespace E_zavetisce.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Client",
-                columns: table => new
-                {
-                    ClientID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DateJoined = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Client", x => x.ClientID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employee",
-                columns: table => new
-                {
-                    EmployeeID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    HireDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employee", x => x.EmployeeID);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,56 +174,42 @@ namespace E_zavetisce.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notification",
+                name: "Client",
                 columns: table => new
                 {
-                    NotificationID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeID = table.Column<int>(type: "int", nullable: false)
+                    ClientID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DateJoined = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notification", x => x.NotificationID);
+                    table.PrimaryKey("PK_Client", x => x.ClientID);
                     table.ForeignKey(
-                        name: "FK_Notification_Employee_EmployeeID",
-                        column: x => x.EmployeeID,
-                        principalTable: "Employee",
-                        principalColumn: "EmployeeID",
+                        name: "FK_Client_AspNetUsers_ClientID",
+                        column: x => x.ClientID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Adoption",
+                name: "Employee",
                 columns: table => new
                 {
-                    PetID = table.Column<int>(type: "int", nullable: false),
-                    EmployeeID = table.Column<int>(type: "int", nullable: false),
-                    ClientID = table.Column<int>(type: "int", nullable: false),
-                    DateAdopted = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EmployeeID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    HireDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Adoption", x => new { x.PetID, x.EmployeeID, x.ClientID });
+                    table.PrimaryKey("PK_Employee", x => x.EmployeeID);
                     table.ForeignKey(
-                        name: "FK_Adoption_Client_ClientID",
-                        column: x => x.ClientID,
-                        principalTable: "Client",
-                        principalColumn: "ClientID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Adoption_Employee_EmployeeID",
+                        name: "FK_Employee_AspNetUsers_EmployeeID",
                         column: x => x.EmployeeID,
-                        principalTable: "Employee",
-                        principalColumn: "EmployeeID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Adoption_Pet_PetID",
-                        column: x => x.PetID,
-                        principalTable: "Pet",
-                        principalColumn: "PetID",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -263,7 +219,7 @@ namespace E_zavetisce.Migrations
                 {
                     HandOverID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientID = table.Column<int>(type: "int", nullable: false),
+                    ClientID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PetID = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -281,6 +237,58 @@ namespace E_zavetisce.Migrations
                         column: x => x.PetID,
                         principalTable: "Pet",
                         principalColumn: "PetID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Adoption",
+                columns: table => new
+                {
+                    PetID = table.Column<int>(type: "int", nullable: false),
+                    ClientID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DateAdopted = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EmployeeID = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Adoption", x => new { x.PetID, x.ClientID });
+                    table.ForeignKey(
+                        name: "FK_Adoption_Client_ClientID",
+                        column: x => x.ClientID,
+                        principalTable: "Client",
+                        principalColumn: "ClientID");
+                    table.ForeignKey(
+                        name: "FK_Adoption_Employee_EmployeeID",
+                        column: x => x.EmployeeID,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeID");
+                    table.ForeignKey(
+                        name: "FK_Adoption_Pet_PetID",
+                        column: x => x.PetID,
+                        principalTable: "Pet",
+                        principalColumn: "PetID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notification",
+                columns: table => new
+                {
+                    NotificationID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EmployeeID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notification", x => x.NotificationID);
+                    table.ForeignKey(
+                        name: "FK_Notification_Employee_EmployeeID",
+                        column: x => x.EmployeeID,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -380,9 +388,6 @@ namespace E_zavetisce.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Client");
 
             migrationBuilder.DropTable(
@@ -390,6 +395,9 @@ namespace E_zavetisce.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employee");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

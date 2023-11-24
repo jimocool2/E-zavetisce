@@ -7,7 +7,9 @@ namespace E_zavetisce.Models
 {
     public class Client
     {
-        public int ClientID { get; set; }
+        [Key]
+        [ForeignKey("ApplicationUser")]
+        public string ClientID { get; set; }
 
         [Required]
         [Column("FirstName")]
@@ -34,5 +36,6 @@ namespace E_zavetisce.Models
 
         public ICollection<Adoption>? Adoptions { get; set; }
         public ICollection<HandOver>? HandOvers { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

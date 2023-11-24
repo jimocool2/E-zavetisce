@@ -7,7 +7,9 @@ namespace E_zavetisce.Models
 {
     public class Employee
     {
-        public int EmployeeID { get; set; }
+        [Key]
+        [ForeignKey("ApplicationUser")]
+        public string EmployeeID { get; set; }
 
         [Required]
         [Column("FirstName")]
@@ -34,5 +36,8 @@ namespace E_zavetisce.Models
 
         public ICollection<Notification>? Notifications { get; set; }
         public ICollection<Adoption>? Adoptions { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
     }
 }

@@ -20,9 +20,6 @@ namespace E_zavetisce.Models
 
         [Required]
         public Employee Employee { get; set; }
-        public int EmployeeID { get; set; }
-
-        // Mogoce dodaja se kaksne slike
-
+        public string EmployeeID { get; set; }
     }
 }

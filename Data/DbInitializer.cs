@@ -12,15 +12,6 @@ namespace E_zavetisce.Data
         {
             return new Pet { Name = name, Type = type, DateAdded = DateTime.Parse("2023-10-01") };
         }
-
-        private static Client MakeClient(string fmname, string lname)
-        {
-            return new Client { FirstMidName = fmname, LastName = lname, DateJoined = DateTime.Parse("2023-09-01") };
-        }
-        private static Employee MakeEmployee(string fmname, string lname)
-        {
-            return new Employee { FirstMidName = fmname, LastName = lname, HireDate = DateTime.Parse("2021-09-01") };
-        }
         public static void Initialize(ZavetisceContext context)
         {
             context.Database.EnsureCreated();
@@ -38,22 +29,6 @@ namespace E_zavetisce.Data
                 MakePet("Muc", "Maček")
             };
             context.Pets.AddRange(pets);
-            context.SaveChanges();
-
-            var clients = new Client[]
-            {
-                MakeClient("Karen", "Smith"),
-                MakeClient("Li", "Wohn")
-            };
-            context.Clients.AddRange(clients);
-            context.SaveChanges();
-
-            var employees = new Employee[]
-            {
-                MakeEmployee("Sam", "Jonson"),
-                MakeEmployee("Anna", "Bell")
-            };
-            context.Employees.AddRange(employees);
             context.SaveChanges();
 
             var roles = new IdentityRole[]{
@@ -82,6 +57,7 @@ namespace E_zavetisce.Data
                 var hashed = password.HashPassword(user, "Testni123!");
                 user.PasswordHash = hashed;
                 context.Users.Add(user);
+                context.Clients.Add(new Client { ClientID = user.Id, FirstMidName = user.FirstName, LastName = user.LastName, DateJoined = DateTime.Now });
             };
 
             var emp = new ApplicationUser
@@ -103,6 +79,7 @@ namespace E_zavetisce.Data
                 var hashed = password.HashPassword(emp, "Example123!");
                 emp.PasswordHash = hashed;
                 context.Users.Add(emp);
+                context.Employees.Add(new Employee { EmployeeID = emp.Id, FirstMidName = emp.FirstName, LastName = emp.LastName, HireDate = DateTime.Now });
             };
 
             context.SaveChanges();
