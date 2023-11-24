@@ -12,7 +12,7 @@ namespace E_zavetisce.Models
         public int PetID { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; }
 

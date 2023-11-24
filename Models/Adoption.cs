@@ -11,7 +11,7 @@ namespace E_zavetisce.Models
         public string ClientID { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Adopted")]
         public DateTime DateAdopted { get; set; }
 

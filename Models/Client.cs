@@ -24,7 +24,7 @@ namespace E_zavetisce.Models
         public string LastName { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Joined")]
         public DateTime DateJoined { get; set; }
 

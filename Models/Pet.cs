@@ -18,7 +18,7 @@ namespace E_zavetisce.Models
 
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; }
 
