@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_zavetisce.Migrations
 {
     [DbContext(typeof(ZavetisceContext))]
-    [Migration("20231124130843_newDefinitions")]
-    partial class newDefinitions
+    [Migration("20231124170226_better")]
+    partial class better
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -245,8 +245,8 @@ namespace E_zavetisce.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
                         .HasColumnName("Type");
 
                     b.HasKey("PetID");
@@ -519,11 +519,9 @@ namespace E_zavetisce.Migrations
 
             modelBuilder.Entity("E_zavetisce.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Client")
-                        .IsRequired();
+                    b.Navigation("Client");
 
-                    b.Navigation("Employee")
-                        .IsRequired();
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("E_zavetisce.Models.Client", b =>

@@ -64,7 +64,7 @@ namespace E_zavetisce.Data
             {
                 FirstName = "John",
                 LastName = "Smith",
-                Email = "jhon@example.com",
+                Email = "john@example.com",
                 NormalizedEmail = "XXXX@EXAMPLE:COM",
                 UserName = "jhon@example.com",
                 NormalizedUserName = "jhon@example.com",

@@ -24,6 +24,7 @@ namespace E_zavetisce.Models
         public DateTime DateAdded { get; set; }
 
         [Column("Type")]
+        [Display(Name = "Type and description")]
         [StringLength(500)]
         public string Type { get; set; }
     }
