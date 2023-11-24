@@ -1,5 +1,6 @@
 using E_zavetisce.Data;
 using E_zavetisce.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 
@@ -53,6 +54,65 @@ namespace E_zavetisce.Data
                 MakeEmployee("Anna", "Bell")
             };
             context.Employees.AddRange(employees);
+            context.SaveChanges();
+
+            var roles = new IdentityRole[]{
+                new IdentityRole{Id="1", Name="Employee"},
+                new IdentityRole{Id="2", Name="Client"}
+            };
+            context.Roles.AddRange(roles);
+            context.SaveChanges();
+
+            var user = new ApplicationUser
+            {
+                FirstName = "Bob",
+                LastName = "Dilon",
+                Email = "bob@example.com",
+                NormalizedEmail = "XXXX@EXAMPLE:COM",
+                UserName = "bob@example.com",
+                NormalizedUserName = "bob@example.com",
+                PhoneNumber = "+111111111111",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+
+            if (!context.Users.Any(u => u.UserName == user.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>();
+                var hashed = password.HashPassword(user, "Testni123!");
+                user.PasswordHash = hashed;
+                context.Users.Add(user);
+            };
+
+            var emp = new ApplicationUser
+            {
+                FirstName = "John",
+                LastName = "Smith",
+                Email = "jhon@example.com",
+                NormalizedEmail = "XXXX@EXAMPLE:COM",
+                UserName = "jhon@example.com",
+                NormalizedUserName = "jhon@example.com",
+                PhoneNumber = "+111111111111",
+                EmailConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+
+            if (!context.Users.Any(u => u.UserName == emp.UserName))
+            {
+                var password = new PasswordHasher<ApplicationUser>();
+                var hashed = password.HashPassword(emp, "Example123!");
+                emp.PasswordHash = hashed;
+                context.Users.Add(emp);
+            };
+
+            context.SaveChanges();
+
+            var UserRoles = new IdentityUserRole<string>[] {
+                new IdentityUserRole<string>{RoleId = roles[0].Id, UserId=emp.Id},
+                new IdentityUserRole<string>{RoleId = roles[1].Id, UserId=user.Id}
+            };
+
+            context.UserRoles.AddRange(UserRoles);
             context.SaveChanges();
         }
     }

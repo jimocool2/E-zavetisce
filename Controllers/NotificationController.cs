@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using E_zavetisce.Data;
 using E_zavetisce.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace E_zavetisce.Controllers
 {
@@ -46,6 +47,7 @@ namespace E_zavetisce.Controllers
         }
 
         // GET: Notification/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "FirstMidName");
