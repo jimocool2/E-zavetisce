@@ -18,7 +18,6 @@ namespace E_zavetisce.Models
         [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; }
 
-        [Required]
         public Employee? Employee { get; set; }
         public string? EmployeeID { get; set; }
     }

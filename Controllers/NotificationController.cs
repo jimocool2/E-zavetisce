@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using E_zavetisce.Data;
 using E_zavetisce.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace E_zavetisce.Controllers
 {
@@ -23,6 +24,8 @@ namespace E_zavetisce.Controllers
         // GET: Notification
         public async Task<IActionResult> Index()
         {
+            ViewData["IsEmployee"] = User.IsInRole("Employee");
+
             var zavetisceContext = _context.Notifications.Include(n => n.Employee);
             return View(await zavetisceContext.ToListAsync());
         }
@@ -47,7 +50,7 @@ namespace E_zavetisce.Controllers
         }
 
         // GET: Notification/Create
-        [Authorize]
+        [Authorize(Roles = "Employee")]
         public IActionResult Create()
         {
             ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "FirstMidName");
@@ -59,19 +62,34 @@ namespace E_zavetisce.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NotificationID,Title,Body,DateCreated,EmployeeID")] Notification notification)
+        public async Task<IActionResult> Create([Bind("NotificationID,Title,Body,DateCreated")] Notification notification)
         {
+            string employeeId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            notification.EmployeeID = employeeId;
+            notification.DateCreated = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 _context.Add(notification);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.SelectMany(x => x.Value.Errors.Select(z => z.ErrorMessage));
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error);
+                }
+            }
+
             ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "FirstMidName", notification.EmployeeID);
             return View(notification);
         }
 
         // GET: Notification/Edit/5
+        [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +102,7 @@ namespace E_zavetisce.Controllers
             {
                 return NotFound();
             }
+
             ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "FirstMidName", notification.EmployeeID);
             return View(notification);
         }
@@ -125,6 +144,7 @@ namespace E_zavetisce.Controllers
         }
 
         // GET: Notification/Delete/5
+        [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

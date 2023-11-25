@@ -43,11 +43,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Employee.FirstMidName)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.NotificationID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.NotificationID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.NotificationID">Delete</a>
-                </td>
+                @if ((bool)ViewData["IsEmployee"])
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.NotificationID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.NotificationID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.NotificationID">Delete</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                    </td>
+                }
             </tr>
         }
     </tbody>
