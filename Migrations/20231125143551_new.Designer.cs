@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_zavetisce.Migrations
 {
     [DbContext(typeof(ZavetisceContext))]
-    [Migration("20231124130843_newDefinitions")]
-    partial class newDefinitions
+    [Migration("20231125143551_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -212,7 +212,6 @@ namespace E_zavetisce.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EmployeeID")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
@@ -234,6 +233,9 @@ namespace E_zavetisce.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PetID"));
 
+                    b.Property<bool>("Adopted")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
@@ -245,8 +247,8 @@ namespace E_zavetisce.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
                         .HasColumnName("Type");
 
                     b.HasKey("PetID");
@@ -459,9 +461,7 @@ namespace E_zavetisce.Migrations
                 {
                     b.HasOne("E_zavetisce.Models.Employee", "Employee")
                         .WithMany("Notifications")
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeID");
 
                     b.Navigation("Employee");
                 });
@@ -519,11 +519,9 @@ namespace E_zavetisce.Migrations
 
             modelBuilder.Entity("E_zavetisce.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Client")
-                        .IsRequired();
+                    b.Navigation("Client");
 
-                    b.Navigation("Employee")
-                        .IsRequired();
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("E_zavetisce.Models.Client", b =>

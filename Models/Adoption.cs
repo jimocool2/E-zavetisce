@@ -15,10 +15,7 @@ namespace E_zavetisce.Models
         [Display(Name = "Date Adopted")]
         public DateTime DateAdopted { get; set; }
 
-
-        [Required]
         public Pet? Pet { get; set; }
-        [Required]
         public Client? Client { get; set; }
     }
 }

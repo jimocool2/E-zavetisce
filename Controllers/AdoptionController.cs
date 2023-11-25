@@ -7,23 +7,41 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using E_zavetisce.Data;
 using E_zavetisce.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace E_zavetisce.Controllers
 {
     public class AdoptionController : Controller
     {
         private readonly ZavetisceContext _context;
+        private readonly UserManager<ApplicationUser> _userMannager;
 
-        public AdoptionController(ZavetisceContext context)
+        public AdoptionController(ZavetisceContext context, UserManager<ApplicationUser> userMannager)
         {
             _context = context;
+            _userMannager = userMannager;
         }
 
         // GET: Adoption
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var zavetisceContext = _context.Adoptions.Include(a => a.Client).Include(a => a.Pet);
-            return View(await zavetisceContext.ToListAsync());
+            var currentUser = await _userMannager.GetUserAsync(User);
+            var isEmployee = User.IsInRole("Employee");
+
+            IQueryable<Adoption> adoptions;
+
+            if (isEmployee)
+            {
+                adoptions = _context.Adoptions.Include(a => a.Client).Include(a => a.Pet);
+            }
+            else
+            {
+                adoptions = _context.Adoptions.Where(a => a.ClientID == currentUser.Id).Include(a => a.Client).Include(a => a.Pet);
+            }
+
+            return View(await adoptions.ToListAsync());
         }
 
         // GET: Adoption/Details/5
@@ -47,10 +65,21 @@ namespace E_zavetisce.Controllers
         }
 
         // GET: Adoption/Create
-        public IActionResult Create()
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> Create(int? id)
         {
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "FirstMidName");
-            ViewData["PetID"] = new SelectList(_context.Pets, "PetID", "Name");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pet = await _context.Pets.FindAsync(id);
+            if (pet == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["Pet"] = pet;
             return View();
         }
 
@@ -59,106 +88,34 @@ namespace E_zavetisce.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PetID,ClientID,DateAdopted")] Adoption adoption)
+        public async Task<IActionResult> Create(int id)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(adoption);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "FirstMidName", adoption.ClientID);
-            ViewData["PetID"] = new SelectList(_context.Pets, "PetID", "Name", adoption.PetID);
-            return View(adoption);
-        }
-
-        // GET: Adoption/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
+            var pet = await _context.Pets.FindAsync(id);
+            if (pet == null)
             {
                 return NotFound();
             }
 
-            var adoption = await _context.Adoptions.FindAsync(id);
-            if (adoption == null)
-            {
-                return NotFound();
-            }
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "FirstMidName", adoption.ClientID);
-            ViewData["PetID"] = new SelectList(_context.Pets, "PetID", "Name", adoption.PetID);
-            return View(adoption);
-        }
-
-        // POST: Adoption/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PetID,ClientID,DateAdopted")] Adoption adoption)
-        {
-            if (id != adoption.PetID)
+            var currentUser = await _userMannager.GetUserAsync(User);
+            if (currentUser == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var adoption = new Adoption
             {
-                try
-                {
-                    _context.Update(adoption);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AdoptionExists(adoption.PetID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "FirstMidName", adoption.ClientID);
-            ViewData["PetID"] = new SelectList(_context.Pets, "PetID", "Name", adoption.PetID);
-            return View(adoption);
-        }
+                PetID = pet.PetID,
+                ClientID = currentUser.Id, // Replace with the appropriate client ID
+                DateAdopted = DateTime.Now
+            };
 
-        // GET: Adoption/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            _context.Add(adoption);
 
-            var adoption = await _context.Adoptions
-                .Include(a => a.Client)
-                .Include(a => a.Pet)
-                .FirstOrDefaultAsync(m => m.PetID == id);
-            if (adoption == null)
-            {
-                return NotFound();
-            }
-
-            return View(adoption);
-        }
-
-        // POST: Adoption/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var adoption = await _context.Adoptions.FindAsync(id);
-            if (adoption != null)
-            {
-                _context.Adoptions.Remove(adoption);
-            }
+            pet.Adopted = true;
+            _context.Update(pet);
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

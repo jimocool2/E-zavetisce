@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using E_zavetisce.Data;
 using E_zavetisce.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace E_zavetisce.Controllers
 {
     public class PetsController : Controller
     {
         private readonly ZavetisceContext _context;
+        private readonly UserManager<ApplicationUser> _usermannager;
 
-        public PetsController(ZavetisceContext context)
+        public PetsController(ZavetisceContext context, UserManager<ApplicationUser> usermannager)
         {
             _context = context;
+            _usermannager = usermannager;
         }
 
         // GET: Pets
@@ -45,7 +48,7 @@ namespace E_zavetisce.Controllers
         }
 
         // GET: Pets/Create
-        [Authorize]
+        [Authorize(Roles = "Client")]
         public IActionResult Create()
         {
             return View();
@@ -58,10 +61,23 @@ namespace E_zavetisce.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PetID,Name,Type")] Pet pet)
         {
+            var currentUser = await _usermannager.GetUserAsync(User);
+
             if (ModelState.IsValid)
             {
+                // Ustvari pet
                 pet.DateAdded = DateTime.Now;
                 _context.Add(pet);
+                await _context.SaveChangesAsync();
+
+                // Ustvari handOver
+                var handOver = new HandOver
+                {
+                    ClientID = currentUser.Id,
+                    PetID = pet.PetID,
+                    DateCreated = DateTime.Now
+                };
+                _context.Add(handOver);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -69,6 +85,7 @@ namespace E_zavetisce.Controllers
         }
 
         // GET: Pets/Edit/5
+        [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,6 +137,7 @@ namespace E_zavetisce.Controllers
         }
 
         // GET: Pets/Delete/5
+        [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
