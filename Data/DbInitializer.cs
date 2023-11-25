@@ -66,8 +66,8 @@ namespace E_zavetisce.Data
                 LastName = "Smith",
                 Email = "john@example.com",
                 NormalizedEmail = "XXXX@EXAMPLE:COM",
-                UserName = "jhon@example.com",
-                NormalizedUserName = "jhon@example.com",
+                UserName = "john@example.com",
+                NormalizedUserName = "john@example.com",
                 PhoneNumber = "+111111111111",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D")

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_zavetisce.Migrations
 {
     [DbContext(typeof(ZavetisceContext))]
-    [Migration("20231124170226_better")]
-    partial class better
+    [Migration("20231125114421_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace E_zavetisce.Migrations
 {
     /// <inheritdoc />
-    public partial class better : Migration
+    public partial class @new : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

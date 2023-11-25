@@ -19,7 +19,7 @@ namespace E_zavetisce.Models
         public DateTime DateCreated { get; set; }
 
         [Required]
-        public Employee Employee { get; set; }
-        public string EmployeeID { get; set; }
+        public Employee? Employee { get; set; }
+        public string? EmployeeID { get; set; }
     }
 }
