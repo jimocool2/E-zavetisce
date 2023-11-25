@@ -1,8 +1,37 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var notifications = ViewData["Notifications"] as List<E_zavetisce.Models.Notification>;
+    var pets = ViewData["Pets"] as List<E_zavetisce.Models.Pet>;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to E-zavetišče</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <div class="bg-dark text-white p-5">
+        <h1 class="display-4 text-center">Welcome to E-zavetišče</h1>
+        <div class="d-flex justify-content-evenly">
+            @foreach (var notification in notifications)
+            {
+                <a class="text-reset text-decoration-none d-block w-25" asp-area="" asp-controller="Notification" asp-action="Details"
+                    asp-route-id="@notification.NotificationID">
+                    <div class="bg-secondary p-3 rounded-3">
+                        <h2>@notification.Title</h2>
+                        <p class="date">@notification.DateCreated.ToString("g")</p>
+                        <p>@notification.Body</p>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+    <div class="d-flex justify-content-evenly p-3">
+        @foreach (var pet in pets)
+        {
+            <a class="text-reset text-decoration-none" asp-area="" asp-controller="Pets" asp-action="Details"
+                asp-route-id="@pet.PetID">
+                <div class="p-3 mw-20">
+                    <h2>@pet.Name</h2>
+                    <p class="date">@pet.DateAdded.ToString("g")</p>
+                    <p>@pet.Type</p>
+                </div>
+            </a>
+        }
+    </div>
 </div>
