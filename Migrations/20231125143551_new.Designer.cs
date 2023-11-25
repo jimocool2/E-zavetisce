@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_zavetisce.Migrations
 {
     [DbContext(typeof(ZavetisceContext))]
-    [Migration("20231125114421_new")]
+    [Migration("20231125143551_new")]
     partial class @new
     {
         /// <inheritdoc />
@@ -212,7 +212,6 @@ namespace E_zavetisce.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EmployeeID")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
@@ -233,6 +232,9 @@ namespace E_zavetisce.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PetID"));
+
+                    b.Property<bool>("Adopted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
@@ -459,9 +461,7 @@ namespace E_zavetisce.Migrations
                 {
                     b.HasOne("E_zavetisce.Models.Employee", "Employee")
                         .WithMany("Notifications")
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeID");
 
                     b.Navigation("Employee");
                 });

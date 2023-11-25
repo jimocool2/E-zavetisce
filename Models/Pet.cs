@@ -27,6 +27,8 @@ namespace E_zavetisce.Models
         [Display(Name = "Type and description")]
         [StringLength(500)]
         public string Type { get; set; }
+
+        public bool Adopted { get; set; }
     }
 }
 

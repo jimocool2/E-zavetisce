@@ -60,7 +60,8 @@ namespace E_zavetisce.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Adopted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -279,7 +280,7 @@ namespace E_zavetisce.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    EmployeeID = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -288,8 +289,7 @@ namespace E_zavetisce.Migrations
                         name: "FK_Notification_Employee_EmployeeID",
                         column: x => x.EmployeeID,
                         principalTable: "Employee",
-                        principalColumn: "EmployeeID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "EmployeeID");
                 });
 
             migrationBuilder.CreateIndex(
