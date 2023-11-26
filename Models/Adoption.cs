@@ -12,7 +12,7 @@ namespace E_zavetisce.Models
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Date Adopted")]
+        [Display(Name = "Dan posvojitve")]
         public DateTime DateAdopted { get; set; }
 
         public Pet? Pet { get; set; }

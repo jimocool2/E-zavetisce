@@ -13,22 +13,22 @@ namespace E_zavetisce.Models
 
         [Required]
         [Column("FirstName")]
-        [Display(Name = "First Name")]
+        [Display(Name = "Ime")]
         [StringLength(50)]
         public string FirstMidName { get; set; }
 
         [Required]
         [Column("LastName")]
-        [Display(Name = "Last Name")]
+        [Display(Name = "Priimek")]
         [StringLength(50)]
         public string LastName { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Date Joined")]
+        [Display(Name = "Datum pridružitve")]
         public DateTime DateJoined { get; set; }
 
-        [Display(Name = "Full Name")]
+        [Display(Name = "Ime")]
         public string FullName
         {
             get { return LastName + ", " + FirstMidName; }

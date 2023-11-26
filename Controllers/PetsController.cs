@@ -94,6 +94,8 @@ namespace E_zavetisce.Controllers
             }
 
             var pet = await _context.Pets.FindAsync(id);
+            ViewData["isEmployee"] = User.IsInRole("Employee");
+
             if (pet == null)
             {
                 return NotFound();

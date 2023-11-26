@@ -1,34 +1,29 @@
 @model E_zavetisce.Models.Pet
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Oddaja živali";
 }
 
-<h1>Place pet for adoption:</h1>
+<h1>Oddaj žival:</h1>
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="Type" class="control-label"></label>
+            <textarea asp-for="Type" class="form-control textarea"></textarea>
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Ustvari" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Nazaj na seznam</a>
+        </div>
+    </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
-

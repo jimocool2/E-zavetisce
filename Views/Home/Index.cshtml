@@ -4,37 +4,35 @@
     var pets = ViewData["Pets"] as List<E_zavetisce.Models.Pet>;
 }
 
-<main>
-    <div class="bg-dark text-white p-5 index-main mb-4">
-        <h1 class="display-4 bg-dark">Dobrodošli na E-zavetišče</h1>
-        <div class="d-flex justify-content-around">
-            @foreach (var notification in notifications)
-            {
-                <a class="text-reset text-decoration-none w-30" asp-area="" asp-controller="Notification"
-                    asp-action="Details" asp-route-id="@notification.NotificationID">
-                    <div class="card-dark glass p-3 mh-25">
-                        <h2>@notification.Title</h2>
-                        <p class="date">@notification.DateCreated.ToString("g")</p>
-                        <div class="lines-3">@notification.Body</div>
-                    </div>
-                </a>
-            }
-        </div>
+<div class="bg-dark text-white p-5 heading index-main mb-4">
+    <h1 class="display-4 bg-dark">Dobrodošli na E-zavetišče</h1>
+    <div class="d-flex justify-content-around">
+        @foreach (var notification in notifications)
+        {
+            <a class="text-reset text-decoration-none w-30" asp-area="" asp-controller="Notification" asp-action="Details"
+                asp-route-id="@notification.NotificationID">
+                <div class="card-dark glass p-3 mh-25">
+                    <h2>@notification.Title</h2>
+                    <p class="date">@notification.DateCreated.ToString("g")</p>
+                    <div class="lines-3">@notification.Body</div>
+                </div>
+            </a>
+        }
     </div>
-    <div>
-        <h3>Nekaj naših živali: </h3>
-        <div class="d-flex justify-content-evenly p-3 text-white">
-            @foreach (var pet in pets)
-            {
-                <a class="text-reset text-decoration-none w-30" asp-area="" asp-controller="Pets" asp-action="Details"
-                    asp-route-id="@pet.PetID">
-                    <div class="card-dark p-3">
-                        <h2>@pet.Name</h2>
-                        <p class="date">Predan: @pet.DateAdded.ToString("g")</p>
-                        <div class="lines-3">@pet.Type</div>
-                    </div>
-                </a>
-            }
-        </div>
+</div>
+<div>
+    <h3>Nekaj naših živali: </h3>
+    <div class="d-flex justify-content-evenly p-3 text-white">
+        @foreach (var pet in pets)
+        {
+            <a class="text-reset text-decoration-none w-30" asp-area="" asp-controller="Pets" asp-action="Details"
+                asp-route-id="@pet.PetID">
+                <div class="card-dark p-3">
+                    <h2>@pet.Name</h2>
+                    <p class="date">Predan: @pet.DateAdded.ToString("g")</p>
+                    <div class="lines-3">@pet.Type</div>
+                </div>
+            </a>
+        }
     </div>
-</main>
+</div>

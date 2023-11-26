@@ -4,33 +4,38 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="pet-details p-3">
+    <h1>Podrobnosti:</h1>
 
-<div>
-    <h4>Pet</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateAdded)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateAdded)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.PetID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2 fs-3">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10 fs-3">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <hr />
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateAdded)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @if (ViewData["isEmployee"] != null && (bool)ViewData["isEmployee"])
+        {
+            <a asp-action="Edit" asp-route-id="@Model.PetID" class="btn btn-success">Uredi</a>
+            <a asp-action="Delete" asp-route-id="@Model.PetID" class="btn btn-danger">Izbriši</a>
+        }
+        <a asp-action="Index" class="btn btn-primary">Nazaj na seznam</a>
+    </div>
 </div>

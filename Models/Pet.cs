@@ -15,16 +15,17 @@ namespace E_zavetisce.Models
         [Required]
         [Column("Name")]
         [StringLength(50)]
+        [Display(Name = "Ime")]
         public string Name { get; set; }
 
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Date Added")]
+        [Display(Name = "Predan")]
         public DateTime DateAdded { get; set; }
 
         [Column("Type")]
-        [Display(Name = "Type and description")]
+        [Display(Name = "Tip in opis")]
         [StringLength(500)]
         public string Type { get; set; }
 

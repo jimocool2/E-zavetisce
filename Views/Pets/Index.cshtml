@@ -5,62 +5,21 @@
 }
 
 
-<div class="pets">
-    <h1>Naše živali</h1>
+<div class="bg-dark text-white heading pets">
+    <h1 class="display-4 bg-dark">Naše živali</h1>
 </div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAdded)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            @if (!(bool)item.Adopted)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Type)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.PetID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.PetID">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.PetID">Delete</a> |
-                        <a asp-area="" asp-controller="Adoption" asp-action="Create" asp-route-id="@item.PetID">Adopt Pet</a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
 
 <div class="d-flex flex-wrap">
     @foreach (var item in Model)
     {
         @if (!(bool)item.Adopted)
         {
-            <a asp-action="Details" asp-route-id="@item.PetID" class="text-reset text-decoration-none flex-grow-1 flex-basis">
-                <div>
+            <a asp-action="Details" asp-route-id="@item.PetID"
+                class="pet card-light text-reset text-decoration-none flex-grow-1 flex-basis">
+                <div class="">
                     <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
-                    <p class="date">@Html.DisplayFor(modelItem => item.DateAdded)</p>
-                    <div>@Html.DisplayFor(modelItem => item.Type)</div>
+                    <p class="date">Predan: @Html.DisplayFor(modelItem => item.DateAdded)</p>
+                    <div class="lines-3">@Html.DisplayFor(modelItem => item.Type)</div>
                 </div>
             </a>
         }

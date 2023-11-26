@@ -13,10 +13,11 @@ namespace E_zavetisce.Models
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd. MM. yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Date Created")]
+        [Display(Name = "Datum predaje")]
         public DateTime DateCreated { get; set; }
-
+        [Display(Name = "Stranka")]
         public Client Client { get; set; }
+        [Display(Name = "Žival")]
         public Pet Pet { get; set; }
     }
 }
