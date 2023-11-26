@@ -1,49 +1,50 @@
 @model IEnumerable<E_zavetisce.Models.Adoption>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Posvojitve";
 }
-
-<h1>Adoptions:</h1>
-@if (Model.Count() == 0)
-{
-    <h3>There are no adoptions.</h3>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateAdopted)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Client)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Pet)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-
-
-            @foreach (var item in Model)
-            {
+<div class="p-3">
+    <h1>Posvojitve:</h1>
+    @if (Model.Count() == 0)
+    {
+        <h3>Nimate še posvojitev.</h3>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdopted)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Client.FirstMidName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pet.Name)
-                    </td>
-                    <td><a asp-action="Details" asp-controller="Pets" asp-route-id="@item.Pet.PetID">Pet details</a></td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateAdopted)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Pet)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateAdopted)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.FirstMidName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pet.Name)
+                        </td>
+                        <td><a asp-action="Details" asp-controller="Pets" asp-route-id="@item.Pet.PetID">Pet details</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

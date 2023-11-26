@@ -1,42 +1,23 @@
 @model E_zavetisce.Models.Notification
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Podrobnosti";
 }
+<div class="p-3">
 
-<h1>Details</h1>
-
-<div>
-    <h4>Notification</h4>
+    <h1>@Html.DisplayFor(model => model.Title)</h1>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Employee.FirstMidName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.NotificationID">Edit</a> |
-    <a asp-action="Index">Nazaj na seznam</a>
+    <p><b>@Html.DisplayNameFor(model => model.Employee): </b>@Html.DisplayFor(model => model.Employee.FirstMidName),
+        <span class="date">@Html.DisplayFor(model => model.DateCreated)</span>
+    </p>
+    <p>@Html.DisplayFor(model => model.Body)</p>
+
+    <div>
+        @if (ViewData["isEmployee"] != null && (bool)ViewData["isEmployee"])
+        {
+            <a asp-action="Edit" asp-route-id="@Model?.NotificationID" class="btn btn-success">Uredi</a>
+            <a asp-action="Delete" asp-route-id="@Model?.NotificationID" class="btn btn-danger">Izbriši</a>
+        }
+        <a asp-action="Index" class="btn btn-primary">Nazaj na seznam</a>
+    </div>
 </div>

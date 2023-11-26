@@ -4,43 +4,33 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="p-3">
+    <h1>Uredi</h1>
 
-<h4>Notification</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="NotificationID" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Body" class="control-label"></label>
-                <input asp-for="Body" class="form-control" />
-                <span asp-validation-for="Body" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>
-                <input asp-for="DateCreated" class="form-control" />
-                <span asp-validation-for="DateCreated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmployeeID" class="control-label"></label>
-                <select asp-for="EmployeeID" class="form-control" asp-items="ViewBag.EmployeeID"></select>
-                <span asp-validation-for="EmployeeID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+    <h4>Notification</h4>
+    <hr />
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="NotificationID" />
+        <input type="hidden" asp-for="DateCreated" />
+        <div class="form-group">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Body" class="control-label"></label>
+            <textarea rows="10" asp-for="Body" class="form-control textarea"></textarea>
+            <span asp-validation-for="Body" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="EmployeeID" class="control-label"></label>
+            <select asp-for="EmployeeID" class="form-control" asp-items="ViewBag.EmployeeID"></select>
+            <span asp-validation-for="EmployeeID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Shrani" class="btn btn-primary" /> <a asp-action="Index"
+                class="btn btn-secondary">Nazaj na seznam</a>
+        </div>
+    </form>
 </div>
-
-<div>
-    <a asp-action="Index">Nazaj na seznam</a>
-</div>
-

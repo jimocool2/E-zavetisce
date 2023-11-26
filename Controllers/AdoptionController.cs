@@ -65,7 +65,7 @@ namespace E_zavetisce.Controllers
         }
 
         // GET: Adoption/Create
-        [Authorize(Roles = "Client")]
+        [Authorize]
         public async Task<IActionResult> Create(int? id)
         {
             if (id == null)

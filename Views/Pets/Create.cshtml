@@ -3,27 +3,28 @@
 @{
     ViewData["Title"] = "Oddaja živali";
 }
+<div class="p-3">
+    <h1>Oddaj žival:</h1>
 
-<h1>Oddaj žival:</h1>
+    <hr />
+    <div class="row">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Type" class="control-label"></label>
+                <textarea rows="10" asp-for="Type" class="form-control textarea"></textarea>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ustvari" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Nazaj na seznam</a>
+            </div>
+        </form>
 
-<hr />
-<div class="row">
-    <form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Name" class="control-label"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group mb-2">
-            <label asp-for="Type" class="control-label"></label>
-            <textarea asp-for="Type" class="form-control textarea"></textarea>
-            <span asp-validation-for="Type" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Ustvari" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-secondary">Nazaj na seznam</a>
-        </div>
-    </form>
-
+    </div>
 </div>

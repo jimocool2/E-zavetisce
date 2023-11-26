@@ -1,62 +1,32 @@
 @model IEnumerable<E_zavetisce.Models.Notification>
 
 @{
-    ViewData["Title"] = "Notifications";
+    ViewData["Title"] = "Obvestila";
 }
 
-<h1>Notifications</h1>
+<div class="bg-dark text-white heading notifications">
+    <h1 class="display-4 bg-dark">Obvestila</h1>
+</div>
+@if (ViewData["isEmployee"] != null && (bool)ViewData["isEmployee"])
+{
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+    <a asp-action="Create" class="btn btn-primary mb-0 mt-3">Ustvari</a>
+
+}
+<div class="p-3 d-flex flex-wrap">
+    <div>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Employee.FirstMidName)
-                </td>
-                @if ((bool)ViewData["IsEmployee"])
-                {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.NotificationID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.NotificationID">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.NotificationID">Delete</a>
-                    </td>
-                }
-                else
-                {
-                    <td>
-                    </td>
-                }
-            </tr>
+            <a asp-action="Details" asp-route-id="@item.NotificationID" class="text-reset text-decoration-none m-3">
+                <div class="card-light p-3">
+                    <h1>@Html.DisplayFor(modelItem => item.Title)</h1>
+                    <p><b>@Html.DisplayNameFor(model => model.Employee): </b>@Html.DisplayFor(modelItem =>
+                    item.Employee.FirstMidName), <span class="date">@Html.DisplayFor(modelItem =>
+                        item.DateCreated)</span>
+                    </p>
+                    <div class="lines-3">@Html.DisplayFor(modelItem => item.Body)</div>
+                </div>
+            </a>
         }
-    </tbody>
-</table>
+    </div>
+</div>

@@ -24,7 +24,7 @@ namespace E_zavetisce.Controllers
         // GET: Notification
         public async Task<IActionResult> Index()
         {
-            ViewData["IsEmployee"] = User.IsInRole("Employee");
+            ViewData["isEmployee"] = User.IsInRole("Employee");
 
             var zavetisceContext = _context.Notifications.Include(n => n.Employee);
             return View(await zavetisceContext.ToListAsync());
@@ -37,7 +37,8 @@ namespace E_zavetisce.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["isEmployee"] = User.IsInRole("Employee");
+            
             var notification = await _context.Notifications
                 .Include(n => n.Employee)
                 .FirstOrDefaultAsync(m => m.NotificationID == id);

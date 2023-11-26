@@ -16,7 +16,7 @@
         {
             <a asp-action="Details" asp-route-id="@item.PetID"
                 class="pet card-light text-reset text-decoration-none flex-grow-1 flex-basis">
-                <div class="">
+                <div>
                     <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
                     <p class="date">Predan: @Html.DisplayFor(modelItem => item.DateAdded)</p>
                     <div class="lines-3">@Html.DisplayFor(modelItem => item.Type)</div>

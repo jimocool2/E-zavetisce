@@ -36,6 +36,10 @@
             <a asp-action="Edit" asp-route-id="@Model.PetID" class="btn btn-success">Uredi</a>
             <a asp-action="Delete" asp-route-id="@Model.PetID" class="btn btn-danger">Izbriši</a>
         }
-        <a asp-action="Index" class="btn btn-primary">Nazaj na seznam</a>
+        else
+        {
+            <a asp-action="Create" asp-controller="Adoption" class="btn btn-primary">Posvoji</a>
+        }
+        <a asp-action="Index" class="btn btn-secondary">Nazaj na seznam</a>
     </div>
 </div>

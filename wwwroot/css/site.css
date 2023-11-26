@@ -29,9 +29,12 @@
   min-height: 80dvh;
 }
 
+.index-main h1 {
+  top: -3rem;
+}
+
 .heading h1{
   position: relative;
-  top: -3rem;
   padding: 1.25rem;
   display: block;
   text-align: center;
@@ -50,18 +53,19 @@
   height: 60dvh;
 }
 
-.pets h1 {
- top: 0 !important;
-}
-
 .pet{
   flex-basis: 300px;
   margin: 1rem;
   padding: 1rem;
 }
 
-.pet-details {
-  
+.notifications {
+  background-image: url("../imgs/smort_dog.webp");
+  background-position: top; 
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 500px;
+  height: 70dvh;
 }
 
 .textarea{

@@ -36,7 +36,7 @@ namespace E_zavetisce.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["isEmployee"] = User.IsInRole("Employee");
             var pet = await _context.Pets
                 .FirstOrDefaultAsync(m => m.PetID == id);
             if (pet == null)
@@ -94,7 +94,6 @@ namespace E_zavetisce.Controllers
             }
 
             var pet = await _context.Pets.FindAsync(id);
-            ViewData["isEmployee"] = User.IsInRole("Employee");
 
             if (pet == null)
             {
