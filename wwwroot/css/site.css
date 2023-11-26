@@ -34,9 +34,18 @@
   border-bottom-right-radius: 2rem;
 }
 
+
+
 .card-dark{
   background-color: rgba(33, 37, 41, 0.6);
   border-radius: 30px;
+  transition: all 0.1s ease-in;
+}
+
+.card-dark:hover{
+  background-color: rgba(33, 37, 41, 0.8);
+  scale: 1.05;
+  transition: all 0.2s ease-out;
 }
 
 .card-light{

@@ -1,10 +1,13 @@
 @model IEnumerable<E_zavetisce.Models.Pet>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Naše živali";
 }
 
-<h1>Index</h1>
+
+<div class="pets">
+    <h1>Naše živali</h1>
+</div>
 
 <table class="table">
     <thead>
@@ -47,3 +50,19 @@
         }
     </tbody>
 </table>
+
+<div class="d-flex flex-wrap">
+    @foreach (var item in Model)
+    {
+        @if (!(bool)item.Adopted)
+        {
+            <a asp-action="Details" asp-route-id="@item.PetID" class="text-reset text-decoration-none flex-grow-1 flex-basis">
+                <div>
+                    <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+                    <p class="date">@Html.DisplayFor(modelItem => item.DateAdded)</p>
+                    <div>@Html.DisplayFor(modelItem => item.Type)</div>
+                </div>
+            </a>
+        }
+    }
+</div>

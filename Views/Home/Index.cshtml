@@ -6,7 +6,7 @@
 
 <main>
     <div class="bg-dark text-white p-5 index-main mb-4">
-        <h1 class="display-4 bg-dark">Welcome to E-zavetišče</h1>
+        <h1 class="display-4 bg-dark">Dobrodošli na E-zavetišče</h1>
         <div class="d-flex justify-content-around">
             @foreach (var notification in notifications)
             {
@@ -30,7 +30,7 @@
                     asp-route-id="@pet.PetID">
                     <div class="card-dark p-3">
                         <h2>@pet.Name</h2>
-                        <p class="date">@pet.DateAdded.ToString("g")</p>
+                        <p class="date">Predan: @pet.DateAdded.ToString("g")</p>
                         <div class="lines-3">@pet.Type</div>
                     </div>
                 </a>
