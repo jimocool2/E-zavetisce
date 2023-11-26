@@ -1,5 +1,53 @@
-*{
-  box-sizing: border-box;
+.w-30 {
+  width: 30%;
+}
+
+.lines-3{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  white-space: pre-wrap;
+}
+
+.index-main {
+  background-image: url("../imgs/happy-dogs.jpg");
+  background-position: 50% 80%; 
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 80dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.index-main h1{
+  position: relative;
+  top: -3rem;
+  padding: 1.25rem;
+  display: block;
+  text-align: center;
+  width: 60%;
+  font-weight: bold;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+
+.card-dark{
+  background-color: rgba(33, 37, 41, 0.6);
+  border-radius: 30px;
+}
+
+.card-light{
+  background-color: rgba(136, 140, 143, 0.6);
+  border-radius: 30px;
+}
+
+.glass{
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.9px);
+  -webkit-backdrop-filter: blur(6.9px);
 }
 
 html {

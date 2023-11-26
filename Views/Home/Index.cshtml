@@ -4,34 +4,37 @@
     var pets = ViewData["Pets"] as List<E_zavetisce.Models.Pet>;
 }
 
-<div>
-    <div class="bg-dark text-white p-5">
-        <h1 class="display-4 text-center">Welcome to E-zavetišče</h1>
-        <div class="d-flex justify-content-evenly">
+<main>
+    <div class="bg-dark text-white p-5 index-main mb-4">
+        <h1 class="display-4 bg-dark">Welcome to E-zavetišče</h1>
+        <div class="d-flex justify-content-around">
             @foreach (var notification in notifications)
             {
-                <a class="text-reset text-decoration-none d-block w-25" asp-area="" asp-controller="Notification" asp-action="Details"
-                    asp-route-id="@notification.NotificationID">
-                    <div class="bg-secondary p-3 rounded-3">
+                <a class="text-reset text-decoration-none w-30" asp-area="" asp-controller="Notification"
+                    asp-action="Details" asp-route-id="@notification.NotificationID">
+                    <div class="card-dark glass p-3 mh-25">
                         <h2>@notification.Title</h2>
                         <p class="date">@notification.DateCreated.ToString("g")</p>
-                        <p>@notification.Body</p>
+                        <div class="lines-3">@notification.Body</div>
                     </div>
                 </a>
             }
         </div>
     </div>
-    <div class="d-flex justify-content-evenly p-3">
-        @foreach (var pet in pets)
-        {
-            <a class="text-reset text-decoration-none" asp-area="" asp-controller="Pets" asp-action="Details"
-                asp-route-id="@pet.PetID">
-                <div class="p-3 mw-20">
-                    <h2>@pet.Name</h2>
-                    <p class="date">@pet.DateAdded.ToString("g")</p>
-                    <p>@pet.Type</p>
-                </div>
-            </a>
-        }
+    <div>
+        <h3>Nekaj naših živali: </h3>
+        <div class="d-flex justify-content-evenly p-3 text-white">
+            @foreach (var pet in pets)
+            {
+                <a class="text-reset text-decoration-none w-30" asp-area="" asp-controller="Pets" asp-action="Details"
+                    asp-route-id="@pet.PetID">
+                    <div class="card-dark p-3">
+                        <h2>@pet.Name</h2>
+                        <p class="date">@pet.DateAdded.ToString("g")</p>
+                        <div class="lines-3">@pet.Type</div>
+                    </div>
+                </a>
+            }
+        </div>
     </div>
-</div>
+</main>
