@@ -13,6 +13,7 @@ namespace E_zavetisce.Controllers_Api
 {
     [Route("api/v1/Pets")]
     [ApiController]
+    [ApiKeyAuth]
     public class PetsApiController : ControllerBase
     {
         private readonly ZavetisceContext _context;
@@ -31,7 +32,6 @@ namespace E_zavetisce.Controllers_Api
 
         // GET: api/PetsApi/5
         [HttpGet("{id}")]
-        [ApiKeyAuth]
         public async Task<ActionResult<Pet>> GetPet(int id)
         {
             var pet = await _context.Pets.FindAsync(id);
