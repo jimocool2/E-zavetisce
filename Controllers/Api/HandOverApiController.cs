@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using E_zavetisce.Data;
 using E_zavetisce.Models;
+using E_zavetisce.Filters;
 
 namespace E_zavetisce.Controllers_Api
 {
     [Route("api/v1/HandOvers")]
     [ApiController]
+    [ApiKeyAuth]
     public class HandOverApiController : ControllerBase
     {
         private readonly ZavetisceContext _context;
