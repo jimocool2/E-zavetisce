@@ -6,3 +6,5 @@ E-zavetišče
 
 Z informacijskim sistemom E-zavetišče podpiramo procese zavetišč. Sistem omogoča pregled živali, obvestil, lažjo oddajo in posvojitev živali, lažjo organizacijo, upravljanje zaposlenih, živali in procesa posvojitve. Omogoča boljšo komunikacijo med strankami in zaposlenimi preko obvestil.
 Entitete: živali, obvestila, posvojitve, oddaje, stranka, zaposleni
+
+Spletna stran dostopna na: https://dev-e-zavetisce.azurewebsites.net/
