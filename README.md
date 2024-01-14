@@ -27,3 +27,6 @@ Opis dela posameznih nalog:
 - Razvoj celovite spletne storitve (Blaž)
 - Razvoj celovite mobilne Android aplikacije (Blaž)
 
+Slika podatkovnega modela podatkovne baze
+
+![image](https://github.com/jimocool2/E-zavetisce/assets/63751412/f01d3d94-e75a-4873-acdb-af77eb113f9c)
