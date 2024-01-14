@@ -22,10 +22,10 @@ Zaslonske slike grafičnega vmesnika mobilne aplikacije:
 Opis dela posameznih nalog:
 
 - Ustvarjanje podatkovne baze (Jure)
-- Razvoj celovite spletne aplikacije (Jure)
+- Razvoj celotne spletne aplikacije (Jure)
 - Postavitev aplikacije v oblak (Blaž)
-- Razvoj celovite spletne storitve (Blaž)
-- Razvoj celovite mobilne Android aplikacije (Blaž)
+- Razvoj celotne spletne storitve (Blaž)
+- Razvoj celotne mobilne Android aplikacije (Blaž)
 
 Slika podatkovnega modela podatkovne baze
 
